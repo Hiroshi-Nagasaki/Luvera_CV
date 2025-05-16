@@ -3,9 +3,11 @@ import openai
 import pdfplumber
 from fpdf import FPDF
 import io
+import os
 
 app = Flask(__name__)
-openai.api_key = "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"  # Replace with your OpenAI key
+
+openai.api_key = os.getenv("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")
 
 @app.route("/")
 def home():
@@ -16,6 +18,11 @@ def upload():
     file = request.files['cv']
     with pdfplumber.open(file) as pdf:
         resume_text = "\n".join(page.extract_text() for page in pdf.pages if page.extract_text())
+@app.route("/upload", methods=["POST"])
+def upload():
+    file = request.files['cv']
+    ...
+    response = openai.ChatCompletion.create(...)  # this is where it fails if key is bad
 
     prompt = f"""You're an expert resume reviewer. Analyze this CV and give:
 1. Strengths
