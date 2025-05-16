@@ -7,7 +7,7 @@ import os
 
 app = Flask(__name__)
 
-openai.api_key = os.getenv("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")
+openai.api_key = os.getenv("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")
 
 @app.route("/")
 def home():
